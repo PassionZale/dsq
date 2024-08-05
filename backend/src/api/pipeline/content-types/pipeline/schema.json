@@ -4,7 +4,7 @@
   "info": {
     "singularName": "pipeline",
     "pluralName": "pipelines",
-    "displayName": "Pipeline",
+    "displayName": "AppPipeline",
     "description": ""
   },
   "options": {
@@ -23,7 +23,8 @@
       "required": true
     },
     "desc": {
-      "type": "text"
+      "type": "string",
+      "required": true
     },
     "url": {
       "type": "string",

@@ -832,7 +832,7 @@ export interface ApiPipelinePipeline extends Schema.CollectionType {
   info: {
     singularName: 'pipeline';
     pluralName: 'pipelines';
-    displayName: 'Pipeline';
+    displayName: 'AppPipeline';
     description: '';
   };
   options: {
@@ -845,7 +845,7 @@ export interface ApiPipelinePipeline extends Schema.CollectionType {
       'api::app.app'
     >;
     name: Attribute.String & Attribute.Required;
-    desc: Attribute.Text;
+    desc: Attribute.String & Attribute.Required;
     url: Attribute.String;
     wxacode: Attribute.Media<'images'>;
     createdAt: Attribute.DateTime;
@@ -901,18 +901,13 @@ export interface ApiReleaseLogReleaseLog extends Schema.CollectionType {
   info: {
     singularName: 'release-log';
     pluralName: 'release-logs';
-    displayName: 'ReleaseLog';
+    displayName: 'AppReleaseLog';
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
-    app: Attribute.Relation<
-      'api::release-log.release-log',
-      'oneToOne',
-      'api::app.app'
-    >;
     pipeline: Attribute.Relation<
       'api::release-log.release-log',
       'oneToOne',
@@ -928,9 +923,13 @@ export interface ApiReleaseLogReleaseLog extends Schema.CollectionType {
       >;
     desc: Attribute.Text;
     url: Attribute.String;
+    app: Attribute.Relation<
+      'api::release-log.release-log',
+      'oneToOne',
+      'api::app.app'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::release-log.release-log',
       'oneToOne',
