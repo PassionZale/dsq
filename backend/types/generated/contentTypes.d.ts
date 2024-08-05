@@ -788,6 +788,194 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiAppApp extends Schema.CollectionType {
+  collectionName: 'apps';
+  info: {
+    singularName: 'app';
+    pluralName: 'apps';
+    displayName: 'App';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    system: Attribute.Relation<
+      'api::app.app',
+      'oneToOne',
+      'api::system.system'
+    >;
+    desc: Attribute.Text;
+    platform: Attribute.Relation<
+      'api::app.app',
+      'oneToOne',
+      'api::platform.platform'
+    >;
+    pipelines: Attribute.Relation<
+      'api::app.app',
+      'oneToMany',
+      'api::pipeline.pipeline'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::app.app', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::app.app', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPipelinePipeline extends Schema.CollectionType {
+  collectionName: 'pipelines';
+  info: {
+    singularName: 'pipeline';
+    pluralName: 'pipelines';
+    displayName: 'Pipeline';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    app: Attribute.Relation<
+      'api::pipeline.pipeline',
+      'manyToOne',
+      'api::app.app'
+    >;
+    name: Attribute.String & Attribute.Required;
+    desc: Attribute.Text;
+    url: Attribute.String;
+    wxacode: Attribute.Media<'images'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pipeline.pipeline',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pipeline.pipeline',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlatformPlatform extends Schema.CollectionType {
+  collectionName: 'platforms';
+  info: {
+    singularName: 'platform';
+    pluralName: 'platforms';
+    displayName: 'Platform';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::platform.platform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::platform.platform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReleaseLogReleaseLog extends Schema.CollectionType {
+  collectionName: 'release_logs';
+  info: {
+    singularName: 'release-log';
+    pluralName: 'release-logs';
+    displayName: 'ReleaseLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    app: Attribute.Relation<
+      'api::release-log.release-log',
+      'oneToOne',
+      'api::app.app'
+    >;
+    pipeline: Attribute.Relation<
+      'api::release-log.release-log',
+      'oneToOne',
+      'api::pipeline.pipeline'
+    >;
+    version: Attribute.String & Attribute.Required;
+    buildId: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    desc: Attribute.Text;
+    url: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::release-log.release-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::release-log.release-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSystemSystem extends Schema.CollectionType {
+  collectionName: 'systems';
+  info: {
+    singularName: 'system';
+    pluralName: 'systems';
+    displayName: 'System';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::system.system',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::system.system',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +994,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::app.app': ApiAppApp;
+      'api::pipeline.pipeline': ApiPipelinePipeline;
+      'api::platform.platform': ApiPlatformPlatform;
+      'api::release-log.release-log': ApiReleaseLogReleaseLog;
+      'api::system.system': ApiSystemSystem;
     }
   }
 }

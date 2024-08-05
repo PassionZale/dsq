@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pipelines",
+  "info": {
+    "singularName": "pipeline",
+    "pluralName": "pipelines",
+    "displayName": "Pipeline",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "app": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::app.app",
+      "inversedBy": "pipelines"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "desc": {
+      "type": "text"
+    },
+    "url": {
+      "type": "string",
+      "regex": "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
+    },
+    "wxacode": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

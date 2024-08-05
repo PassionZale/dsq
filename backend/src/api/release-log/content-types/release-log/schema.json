@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "release_logs",
+  "info": {
+    "singularName": "release-log",
+    "pluralName": "release-logs",
+    "displayName": "ReleaseLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "app": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::app.app"
+    },
+    "pipeline": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pipeline.pipeline"
+    },
+    "version": {
+      "type": "string",
+      "required": true,
+      "regex": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(\\.(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\\+[0-9a-zA-Z-]+(\\.[0-9a-zA-Z-]+)*)?$"
+    },
+    "buildId": {
+      "type": "integer",
+      "required": false,
+      "min": 1
+    },
+    "desc": {
+      "type": "text"
+    },
+    "url": {
+      "type": "string",
+      "regex": "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
+    }
+  }
+}

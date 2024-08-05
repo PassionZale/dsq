@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "apps",
+  "info": {
+    "singularName": "app",
+    "pluralName": "apps",
+    "displayName": "App",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "system": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::system.system"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "platform": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::platform.platform"
+    },
+    "pipelines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pipeline.pipeline",
+      "mappedBy": "app"
+    }
+  }
+}
