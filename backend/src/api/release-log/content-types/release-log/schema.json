@@ -4,7 +4,7 @@
   "info": {
     "singularName": "release-log",
     "pluralName": "release-logs",
-    "displayName": "AppReleaseLog",
+    "displayName": "应用流水线发布历史",
     "description": ""
   },
   "options": {
@@ -30,14 +30,23 @@
     "desc": {
       "type": "text"
     },
-    "url": {
-      "type": "string",
-      "regex": "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
-    },
     "app": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::app.app"
+    },
+    "attachment": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "regex": "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
     }
   }
 }

@@ -793,11 +793,11 @@ export interface ApiAppApp extends Schema.CollectionType {
   info: {
     singularName: 'app';
     pluralName: 'apps';
-    displayName: 'App';
+    displayName: '\u5E94\u7528';
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
@@ -812,17 +812,49 @@ export interface ApiAppApp extends Schema.CollectionType {
       'oneToOne',
       'api::platform.platform'
     >;
-    pipelines: Attribute.Relation<
-      'api::app.app',
-      'oneToMany',
-      'api::pipeline.pipeline'
-    >;
+    label: Attribute.String & Attribute.Required & Attribute.Private;
+    subscriber: Attribute.Text;
+    dingdingRobotEnabled: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::app.app', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::app.app', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDingdingRobotDingdingRobot extends Schema.SingleType {
+  collectionName: 'dingding_robots';
+  info: {
+    singularName: 'dingding-robot';
+    pluralName: 'dingding-robots';
+    displayName: '\u9489\u9489\u673A\u5668\u4EBA';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    webhook: Attribute.String & Attribute.Required;
+    secret: Attribute.String;
+    name: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::dingding-robot.dingding-robot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::dingding-robot.dingding-robot',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -832,25 +864,24 @@ export interface ApiPipelinePipeline extends Schema.CollectionType {
   info: {
     singularName: 'pipeline';
     pluralName: 'pipelines';
-    displayName: 'AppPipeline';
+    displayName: '\u5E94\u7528\u6D41\u6C34\u7EBF';
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
+    name: Attribute.String & Attribute.Required;
+    label: Attribute.String & Attribute.Required & Attribute.Private;
+    url: Attribute.String;
+    attachment: Attribute.Media<'images' | 'files'>;
     app: Attribute.Relation<
       'api::pipeline.pipeline',
-      'manyToOne',
+      'oneToOne',
       'api::app.app'
     >;
-    name: Attribute.String & Attribute.Required;
-    desc: Attribute.String & Attribute.Required;
-    url: Attribute.String;
-    wxacode: Attribute.Media<'images'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::pipeline.pipeline',
       'oneToOne',
@@ -871,7 +902,8 @@ export interface ApiPlatformPlatform extends Schema.CollectionType {
   info: {
     singularName: 'platform';
     pluralName: 'platforms';
-    displayName: 'Platform';
+    displayName: '\u6240\u5C5E\u5E73\u53F0';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -901,7 +933,7 @@ export interface ApiReleaseLogReleaseLog extends Schema.CollectionType {
   info: {
     singularName: 'release-log';
     pluralName: 'release-logs';
-    displayName: 'AppReleaseLog';
+    displayName: '\u5E94\u7528\u6D41\u6C34\u7EBF\u53D1\u5E03\u5386\u53F2';
     description: '';
   };
   options: {
@@ -922,12 +954,13 @@ export interface ApiReleaseLogReleaseLog extends Schema.CollectionType {
         number
       >;
     desc: Attribute.Text;
-    url: Attribute.String;
     app: Attribute.Relation<
       'api::release-log.release-log',
       'oneToOne',
       'api::app.app'
     >;
+    attachment: Attribute.Media<'images' | 'files'>;
+    url: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -950,7 +983,8 @@ export interface ApiSystemSystem extends Schema.CollectionType {
   info: {
     singularName: 'system';
     pluralName: 'systems';
-    displayName: 'System';
+    displayName: '\u6240\u5C5E\u7CFB\u7EDF';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -994,6 +1028,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::app.app': ApiAppApp;
+      'api::dingding-robot.dingding-robot': ApiDingdingRobotDingdingRobot;
       'api::pipeline.pipeline': ApiPipelinePipeline;
       'api::platform.platform': ApiPlatformPlatform;
       'api::release-log.release-log': ApiReleaseLogReleaseLog;

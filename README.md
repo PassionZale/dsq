@@ -1,2 +1,7 @@
-# dsq
+# DSQ
+
 WIP
+
+## Backend
+
+## frontend

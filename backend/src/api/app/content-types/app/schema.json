@@ -4,11 +4,11 @@
   "info": {
     "singularName": "app",
     "pluralName": "apps",
-    "displayName": "App",
+    "displayName": "应用",
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -29,11 +29,19 @@
       "relation": "oneToOne",
       "target": "api::platform.platform"
     },
-    "pipelines": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::pipeline.pipeline",
-      "mappedBy": "app"
+    "label": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "private": true
+    },
+    "subscriber": {
+      "type": "text"
+    },
+    "dingdingRobotEnabled": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

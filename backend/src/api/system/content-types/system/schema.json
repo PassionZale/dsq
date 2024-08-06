@@ -4,7 +4,8 @@
   "info": {
     "singularName": "system",
     "pluralName": "systems",
-    "displayName": "System"
+    "displayName": "所属系统",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

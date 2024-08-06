@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "dingding_robots",
+  "info": {
+    "singularName": "dingding-robot",
+    "pluralName": "dingding-robots",
+    "displayName": "钉钉机器人",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "webhook": {
+      "type": "string",
+      "required": true,
+      "regex": "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
+    },
+    "secret": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

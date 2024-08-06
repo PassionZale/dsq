@@ -4,7 +4,8 @@
   "info": {
     "singularName": "platform",
     "pluralName": "platforms",
-    "displayName": "Platform"
+    "displayName": "所属平台",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
