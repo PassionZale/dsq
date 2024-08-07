@@ -1,4 +1,13 @@
 {
+  "name": "dsq-backend",
+	"framework": null,
+  "version": 2,
+  "builds": [
+    {
+      "src": "npm run build",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/.*",
